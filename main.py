@@ -24,7 +24,7 @@ import webapp2
 from google.appengine.api import app_identity
 from  google.appengine.ext import vendor
 
-vendor.add('lib')
+vendor.add('lib1')
 
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
