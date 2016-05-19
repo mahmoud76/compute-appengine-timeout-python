@@ -37,7 +37,7 @@ SAMPLE_NAME = 'Instance timeout helper'
 CONFIG = {
     # In DRY_RUN mode, deletes are only logged. Set this to False after you've
     # double-checked the status page and you're ready to enable the deletes.
-    'DRY_RUN': True,
+    'DRY_RUN': False,
 
     # Be careful, this application could delete all instances in this project.
     # Your project id can be found on the overview tab of the Google APIs
@@ -45,7 +45,7 @@ CONFIG = {
     'GCE_PROJECT_ID': app_identity.get_application_id(),
 
     # Instances created with these tags will never be deleted.
-    'SAFE_TAGS': ['production', 'safetag'],
+    'SAFE_TAGS': ['production', 'safetag1'],
 
     # Instances are deleted after they have been running for TIMEOUT minutes.
     'TIMEOUT': 60 * 8,  # in minutes, defaulting to 8 hours
@@ -134,7 +134,7 @@ def delete_expired_instances():
             logging.info("DRY_RUN, not deleted: %s", name)
         else:
             logging.info("DELETE: %s", name)
-            request = compute.instances().delete(
+            request = compute.instances().stop(
                                     project=CONFIG['GCE_PROJECT_ID'],
                                     instance=name,
                                     zone=zone)
